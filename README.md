@@ -1,16 +1,22 @@
-# youhow
+# Youhow
 
-A new Flutter project.
+##Description
+YouHow Chat App is a real-time messaging application built with Flutter for the frontend, Firebase for backend services such as authentication and database, and Agora for video and voice calling functionalities. The app provides a seamless chat experience with additional features for real-time communication and media sharing.
 
-## Getting Started
+##Features
+- Real-Time Messaging: Instant text messaging with real-time updates using Firebase Firestore.
+- User Authentication: Secure user authentication and registration using Firebase Auth.
+- Voice and Video Calls: High-quality voice and video calling powered by Agora.
+- Media Sharing: Send and receive images, videos, and other media files.
+- Push Notifications: Receive notifications for new messages and calls.
+- User-Friendly Interface: Modern and responsive UI built with Flutter.
 
-This project is a starting point for a Flutter application.
+##**Steps**
+Clone the repository:
+git clone https://github.com/your-username/youhow-chat-app.git
 
-A few resources to get you started if this is your first Flutter project:
+Navigate to the project directory:
+cd youhow-chat-app
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Install dependencies:
+flutter pub get
