@@ -24,4 +24,31 @@ YouHow Chat App is a real-time messaging application built with Flutter for the 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/your-username/youhow-chat-app.git
+2. **Navigate to the project directory**:
+   ```bash
+   cd youhow-chat-app
+3. **Install dependencies**:
+   ```bash
+   flutter pub get
+4. **Set up Firebase**:
+    - Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+    - Add an Android/iOS app to your Firebase project and download the `google-services.json` (for Android) or `GoogleService-Info.plist` (for iOS).
+    - Place these configuration files in the respective directories:
+        - `android/app/` for `google-services.json`
+        - `ios/Runner/` for `GoogleService-Info.plist`
+    - Enable Firebase Authentication and Firestore in your Firebase project.
+5. **Set up Agora**:
+
+   - Go to the [Agora Console](https://console.agora.io/), create a new project, and get the App ID.
+   - Add your Agora App ID in your Flutter project. This typically involves adding the App ID to a configuration file or directly in your code where Agora is initialized.
+
+## Usage
+
+1. **Register** a new account or **log in** with existing credentials.
+2. **Start a new chat** by selecting a user from the contact list.
+3. **Send and receive messages** in real-time.
+4. **Initiate voice or video calls** using the Agora integration.
+5. **Share media files** easily within the chat.
+
+
 
