@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:711771459840:android:902092f7c91b50a29fa3e5",
+        "android_client_info": {
+          "package_name": "com.afloatwont.youhow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbfHbJKGdCpJkQxoQ2wNO88_YJnS8Fomo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:711771459840:android:8971b57b8d813fb69fa3e5",
         "android_client_info": {
           "package_name": "com.example.youhow"

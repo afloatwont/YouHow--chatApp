@@ -1,15 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:youhow/consts.dart';
 import 'package:youhow/models/user_profile.dart';
+import 'package:youhow/pages/otp_page.dart';
 import 'package:youhow/services/alert_service.dart';
 import 'package:youhow/services/auth_service.dart';
 import 'package:youhow/services/database_service.dart';
 import 'package:youhow/services/media_service.dart';
 import 'package:youhow/services/navigation_service.dart';
 import 'package:youhow/services/storage_service.dart';
+import 'package:youhow/utils.dart';
 import 'package:youhow/widgets/custom_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -20,7 +23,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  GlobalKey<FormState> _registerFormKey = GlobalKey();
+  final GlobalKey<FormState> _registerFormKey = GlobalKey();
 
   final GetIt _getIt = GetIt.instance;
 
@@ -36,11 +39,18 @@ class _RegisterPageState extends State<RegisterPage> {
 
   late DatabaseService _databaseService;
 
-  String? email, password, name;
+  String? email, password, name, number, confirmPass;
 
   bool isLoading = false;
+  bool phoneVerified = false;
 
   File? selectedImage;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPassController = TextEditingController();
 
   @override
   void initState() {
@@ -51,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _mediaService = _getIt.get<MediaService>();
     _storageService = _getIt.get<StorageService>();
     _databaseService = _getIt.get<DatabaseService>();
+    requestPermissions().then((_) => setState(() {}));
   }
 
   @override
@@ -63,7 +74,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildUI() {
     return SafeArea(
-      child: Padding(
+      child: Container(
+        height: MediaQuery.sizeOf(context).height,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           children: [
@@ -111,7 +123,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerForm() {
     return Container(
-      height: MediaQuery.sizeOf(context).height * 0.60,
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      height: MediaQuery.sizeOf(context).height * 0.72,
       margin: EdgeInsets.symmetric(
         vertical: MediaQuery.sizeOf(context).height * 0.05,
       ),
@@ -124,28 +137,113 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               pfp(),
               CustomFormField(
+                inputFormatter: const [],
+                controller: nameController,
                 hintText: "Name",
-                height: MediaQuery.sizeOf(context).height * 0.1,
+                height: MediaQuery.sizeOf(context).height * 0.09,
                 validationExp: NAME_VALIDATION_REGEX,
                 onSaved: (value) {
                   name = value;
                 },
+                onError: "Name must start with a capital letter",
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height * 0.09,
+                    width: MediaQuery.sizeOf(context).width * 0.67,
+                    child: CustomFormField(
+                      controller: numberController,
+                      hintText: "Mobile Number",
+                      onChanged: (p0) {
+                        setState(() {
+                          phoneVerified = false;
+                        });
+                      },
+                      inputFormatter: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                      height: MediaQuery.sizeOf(context).height * 0.09,
+                      validationExp: NUMBER_VALIDATION_REGEX,
+                      keyboard: TextInputType.number,
+                      onSaved: (value) {
+                        number = value;
+                      },
+                      onError: "Number is not verified",
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                    child: TextButton(
+                      onPressed: !phoneVerified
+                          ? () async {
+                              if (numberController.text.length == 10) {
+                                print(
+                                    "numbercontroller: ${numberController.text}");
+                                print("number: $number");
+                                await _authService.sendOTP(
+                                  numberController.text,
+                                );
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return VerifyOTP(
+                                      number: numberController.text,
+                                    );
+                                  },
+                                )).then((value) => setState(() {
+                                      phoneVerified = value;
+                                    }));
+                              } else {
+                                null;
+                              }
+                            }
+                          : null,
+                      child: !phoneVerified
+                          ? const Text(
+                              "Verify",
+                              textAlign: TextAlign.center,
+                            )
+                          : const Icon(Icons.verified_rounded,
+                              color: Colors.green),
+                    ),
+                  ),
+                ],
               ),
               CustomFormField(
+                inputFormatter: const [],
+                controller: emailController,
                 hintText: "Email",
-                height: MediaQuery.sizeOf(context).height * 0.1,
+                height: MediaQuery.sizeOf(context).height * 0.09,
                 validationExp: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
                   email = value;
                 },
+                onError: "Enter correct email",
               ),
               CustomFormField(
+                inputFormatter: const [],
+                controller: passwordController,
                 hintText: "Password",
                 obscure: true,
-                height: MediaQuery.sizeOf(context).height * 0.1,
+                height: MediaQuery.sizeOf(context).height * 0.09,
                 validationExp: PASSWORD_VALIDATION_REGEX,
                 onSaved: (value) {
                   password = value;
+                },
+                onError:
+                    "Length: 8, 1 Uppercase, 1 lowercase, 1 symbol, 1 number",
+              ),
+              CustomFormField(
+                inputFormatter: const [],
+                controller: confirmPassController,
+                hintText: "Confirm Password",
+                obscure: true,
+                height: MediaQuery.sizeOf(context).height * 0.09,
+                validationExp: PASSWORD_VALIDATION_REGEX,
+                onError: "Passwords do not match",
+                onSaved: (value) {
+                  confirmPass = value;
                 },
               ),
               _registerButton(),
@@ -160,7 +258,7 @@ class _RegisterPageState extends State<RegisterPage> {
         radius: MediaQuery.of(context).size.width * 0.15,
         backgroundImage: selectedImage != null
             ? FileImage(selectedImage!)
-            : NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
+            : const NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
       ),
       onTap: () async {
         File? img = await _mediaService.getImageFromGallery();
@@ -178,7 +276,9 @@ class _RegisterPageState extends State<RegisterPage> {
         onPressed: () async {
           try {
             if ((_registerFormKey.currentState?.validate() ?? false) &&
-                selectedImage != null) {
+                selectedImage != null &&
+                passwordController.text == confirmPassController.text &&
+                phoneVerified) {
               setState(() {
                 isLoading = true;
               });
@@ -192,9 +292,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 String? pfpurl = await _storageService.uploadUserPfp(
                     file: selectedImage!, uid: _authService.user!.uid);
                 if (pfpurl != null) {
-                  _alertService.showToast(text: "Just a little more time!");
+                  // _alertService.showToast(text: "Just a little more time!");
                   await _databaseService.createUserProfile(
                     userProfile: UserProfile(
+                      number: number,
+                      email: email,
                       uid: _authService.user!.uid,
                       name: name,
                       pfpURL: pfpurl,

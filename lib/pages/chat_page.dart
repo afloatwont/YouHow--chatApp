@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,11 +9,11 @@ import 'package:get_it/get_it.dart';
 import 'package:youhow/models/chat.dart';
 import 'package:youhow/models/message.dart';
 import 'package:youhow/models/user_profile.dart';
-import 'package:youhow/services/alert_service.dart';
+import 'package:youhow/pages/call_page.dart';
 import 'package:youhow/services/auth_service.dart';
+import 'package:youhow/services/call_service.dart';
 import 'package:youhow/services/database_service.dart';
 import 'package:youhow/services/media_service.dart';
-import 'package:youhow/services/navigation_service.dart';
 import 'package:youhow/services/storage_service.dart';
 import 'package:youhow/utils.dart';
 
@@ -30,23 +32,19 @@ class _ChatPageState extends State<ChatPage> {
 
   final GetIt _getIt = GetIt.instance;
   late AuthService _authService;
-  late NavigationService _navigationservice;
-  late AlertService _alertService;
   late DatabaseService _databaseService;
   late MediaService _mediaService;
   late StorageService _storageService;
-
-  TextEditingController _inputController = TextEditingController();
+  late CallService _callService;
 
   @override
   void initState() {
     super.initState();
     _authService = _getIt.get<AuthService>();
-    _navigationservice = _getIt.get<NavigationService>();
-    _alertService = _getIt.get<AlertService>();
     _databaseService = _getIt.get<DatabaseService>();
     _mediaService = _getIt.get<MediaService>();
     _storageService = _getIt.get<StorageService>();
+    _callService = _getIt.get<CallService>();
     currentUser = ChatUser(
         id: _authService.user!.uid,
         firstName: _authService.user!.displayName,
@@ -59,25 +57,57 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   @override
+  void dispose() {
+    _callService.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(left: 18),
+          padding: const EdgeInsets.fromLTRB(12, 8, 0, 8),
           child: CircleAvatar(
-            radius: 20,
-            child: ClipOval(
-              child: Image.network(
-                widget.chatUser.pfpURL!,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
+            radius: 10, // Set a non-zero radius value
+            backgroundImage: NetworkImage(widget.chatUser.pfpURL!),
           ),
         ),
         title: Text(
           widget.chatUser.name!,
           style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CallPage(
+                      chatUser: widget.chatUser,
+                      channelId: generateChatId(
+                          uid1: currentUser!.id, uid2: otherUser!.id),
+                    ),
+                  ));
+              // _callService.join(
+              //     generateChatId(uid1: currentUser!.id, uid2: otherUser!.id),
+              //     0);
+            },
+            icon: const Icon(Icons.call),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.video_call,
+                size: 28,
+              ),
+            ),
+          ),
+        ],
+        elevation: 8,
+        shadowColor: Colors.black,
       ),
       body: _buildUI(),
     );
@@ -107,9 +137,35 @@ class _ChatPageState extends State<ChatPage> {
             ),
             inputOptions: InputOptions(
               alwaysShowSend: true,
+              sendButtonBuilder: (send) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                  child: GestureDetector(
+                    onTap: send,
+                    child: const CircleAvatar(
+                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                      child: Icon(
+                        Icons.send,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                );
+              },
               trailing: [
                 _mediaMessageButton(),
               ],
+              inputDecoration: InputDecoration(
+                hintText: "Enter a message",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                alignLabelWithHint: true,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+              ),
             ),
           );
         });
@@ -185,6 +241,6 @@ class _ChatPageState extends State<ChatPage> {
             _sendMessage(chatMessage);
           }
         },
-        icon: Icon(Icons.image));
+        icon: const Icon(Icons.image));
   }
 }

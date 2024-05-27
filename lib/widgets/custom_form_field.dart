@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class CustomFormField extends StatelessWidget {
@@ -7,6 +8,11 @@ class CustomFormField extends StatelessWidget {
   bool obscure = false;
   RegExp validationExp;
   final void Function(String?) onSaved;
+  TextInputType keyboard;
+  TextEditingController controller;
+  List<TextInputFormatter> inputFormatter;
+  String onError;
+  void Function(String)? onChanged;
   CustomFormField({
     super.key,
     required this.hintText,
@@ -14,6 +20,11 @@ class CustomFormField extends StatelessWidget {
     required this.height,
     required this.validationExp,
     required this.onSaved,
+    required this.controller,
+    this.keyboard = TextInputType.text,
+    required this.inputFormatter,
+    required this.onError,
+    this.onChanged,
   });
 
   @override
@@ -21,16 +32,20 @@ class CustomFormField extends StatelessWidget {
     return SizedBox(
       height: height,
       child: TextFormField(
+        controller: controller,
         onSaved: onSaved,
+        onChanged: onChanged,
         validator: (value) {
           if (value != null && validationExp.hasMatch(value)) {
             return null;
           }
-          return "Enter a valid ${hintText.toLowerCase()}";
+          return onError;
         },
+        keyboardType: keyboard,
+        inputFormatters: inputFormatter,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          hintText: hintText,
+          labelText: hintText,
         ),
         obscureText: obscure,
       ),

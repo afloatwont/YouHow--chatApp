@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:youhow/consts.dart';
 import 'package:youhow/services/alert_service.dart';
 import 'package:youhow/services/auth_service.dart';
 import 'package:youhow/services/navigation_service.dart';
+import 'package:youhow/utils.dart';
 import 'package:youhow/widgets/custom_form_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,12 +25,17 @@ class _LoginPageState extends State<LoginPage> {
 
   late AlertService _alertService;
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPassController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     _authService = _getIt.get<AuthService>();
     _navigationService = _getIt.get<NavigationService>();
     _alertService = _getIt.get<AlertService>();
+    requestPermissions().then((_) => setState(() {}));
   }
 
   String? email, password;
@@ -105,14 +110,19 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               CustomFormField(
+                inputFormatter: [],
+                controller: emailController,
                 hintText: "Email",
                 height: MediaQuery.sizeOf(context).height * 0.1,
                 validationExp: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
                   email = value;
                 },
+                onError: "Enter correct email",
               ),
               CustomFormField(
+                inputFormatter: [],
+                controller: passwordController,
                 hintText: "Password",
                 obscure: true,
                 height: MediaQuery.sizeOf(context).height * 0.1,
@@ -120,7 +130,18 @@ class _LoginPageState extends State<LoginPage> {
                 onSaved: (value) {
                   password = value;
                 },
+                onError: "Wrong password",
               ),
+              // CustomFormField(
+              //   controller: confirmPassController,
+              //   hintText: "Confirm Password",
+              //   obscure: true,
+              //   height: MediaQuery.sizeOf(context).height * 0.1,
+              //   validationExp: PASSWORD_VALIDATION_REGEX,
+              //   onSaved: (value) {
+              //     password = value;
+              //   },
+              // ),
             ],
           )),
     );

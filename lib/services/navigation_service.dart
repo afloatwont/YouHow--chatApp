@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:youhow/pages/homepage.dart';
 import 'package:youhow/pages/login_page.dart';
 import 'package:youhow/pages/register_page.dart';
@@ -8,9 +7,9 @@ class NavigationService {
   late GlobalKey<NavigatorState> _navigatorKey;
 
   final Map<String, Widget Function(BuildContext)> _routes = {
-    '/login': (context) => LoginPage(),
-    '/register': (context) => RegisterPage(),
-    '/home': (context) => HomePage(),
+    '/login': (context) => const LoginPage(),
+    '/register': (context) => const RegisterPage(),
+    '/home': (context) => const HomePage(),
   };
 
   NavigationService() {

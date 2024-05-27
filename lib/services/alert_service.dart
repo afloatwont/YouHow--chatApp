@@ -3,7 +3,6 @@ import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path/path.dart';
 import 'package:youhow/services/navigation_service.dart';
 
 class AlertService {

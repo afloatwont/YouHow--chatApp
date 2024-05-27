@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:youhow/firebase_options.dart';
 import 'package:youhow/services/alert_service.dart';
 import 'package:youhow/services/auth_service.dart';
+import 'package:youhow/services/call_service.dart';
 import 'package:youhow/services/database_service.dart';
 import 'package:youhow/services/media_service.dart';
 import 'package:youhow/services/navigation_service.dart';
@@ -21,6 +22,24 @@ Future<void> registerServices() async {
   getIt.registerSingleton<MediaService>(MediaService());
   getIt.registerSingleton<StorageService>(StorageService());
   getIt.registerSingleton<DatabaseService>(DatabaseService());
+  getIt.registerSingleton<CallService>(CallService());
+}
+
+Future<void> requestPermissions() async {
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.camera,
+    Permission.microphone,
+    Permission.bluetooth,
+    Permission.notification,
+    Permission.systemAlertWindow,
+    Permission.sms,
+    Permission.phone,
+    Permission.storage,
+  ].request();
+
+  statuses.forEach((permission, status) {
+    print('$permission: $status');
+  });
 }
 
 String generateChatId({required String uid1, required String uid2}) {
