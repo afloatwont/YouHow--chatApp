@@ -92,7 +92,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 <p float="left">
   <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/4ffeb5fc-cdd4-4a66-ad0c-9ee449831a4d" width="200" />
-</p>
-<p float="left">
   <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/827fe05f-7ced-4907-a397-456c4276b8f0" width="200" />
 </p>
+
+
