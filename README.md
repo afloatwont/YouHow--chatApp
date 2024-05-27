@@ -11,12 +11,17 @@ YouHow Chat App is a real-time messaging application built with Flutter for the 
 - Push Notifications: Receive notifications for new messages and calls.
 - User-Friendly Interface: Modern and responsive UI built with Flutter.
 
-## **Steps**
-Clone the repository:
-git clone https://github.com/your-username/youhow-chat-app.git
+## Installation
 
-Navigate to the project directory:
-cd youhow-chat-app
+### Prerequisites
 
-Install dependencies:
-flutter pub get
+- Flutter SDK: [installation guide](https://flutter.dev/docs/get-started/install)
+- Firebase account and project set up: [Firebase Console](https://console.firebase.google.com/)
+- Agora account and project set up: [Agora Console](https://console.agora.io/)
+
+### Steps
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/youhow-chat-app.git
+
