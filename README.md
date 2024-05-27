@@ -63,19 +63,28 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 **Login/Register pages**
 
-![Screenshot_2024-05-26-14-33-24-59_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/cf7bef6f-7349-4726-b09f-e9f67cac8b91)
-![Screenshot_2024-05-26-14-33-19-76_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/67451896-ad85-4abc-8ed6-f56342f23edd)
+<p float="left">
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/cf7bef6f-7349-4726-b09f-e9f67cac8b91" width="200" />
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/67451896-ad85-4abc-8ed6-f56342f23edd" width="200" /> 
+</p>
 
 **OTP signup page**
 
-![Screenshot_2024-05-26-14-34-14-97_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/745d27bd-fb83-40c3-8ed9-481b22b2ef84)
+<p float="left">
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/745d27bd-fb83-40c3-8ed9-481b22b2ef84" width="200" />
+</p>
 
 **Home page and Drawer**
 
-![Screenshot_2024-05-26-14-35-49-33_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/38f084b0-0edb-41c8-8ad9-010c16fc3829)
-![Screenshot_2024-05-26-14-39-46-29_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/5321bcc3-d771-4cab-9c0f-1402c33b4631)
-![Screenshot_2024-05-26-14-35-43-01_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/7a11ed2f-beac-478b-9420-98cbbdd8417b)
+<p float="left">
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/38f084b0-0edb-41c8-8ad9-010c16fc3829" width="200" />
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/5321bcc3-d771-4cab-9c0f-1402c33b4631" width="200" /> 
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/7a11ed2f-beac-478b-9420-98cbbdd8417b" width="200" /> 
+</p>
 
 **Chat page**
 
-![Screenshot_2024-05-26-14-47-06-60_a28c0498e4244effe6f062ed16cebb18](https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/e2159d80-d683-4a54-927a-c23f885e08a1)
+<p float="left">
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/e2159d80-d683-4a54-927a-c23f885e08a1" width="200" />
+</p>
+
