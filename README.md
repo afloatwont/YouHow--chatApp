@@ -78,8 +78,10 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 <p float="left">
   <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/38f084b0-0edb-41c8-8ad9-010c16fc3829" width="200" />
-  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/5321bcc3-d771-4cab-9c0f-1402c33b4631" width="200" /> 
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/18abb53c-3134-4021-bf0f-8281c157ad9d" width="200" /> 
   <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/7a11ed2f-beac-478b-9420-98cbbdd8417b" width="200" /> 
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/4d75e739-b624-4c12-94e5-e1c45f893907" width="200" /> 
+  <img src="https://github.com/4YU5H25/YouHow--chatApp/assets/137501269/db0825c5-b2a4-4114-bedb-9afa3793d5a8" width="200" /> 
 </p>
 
 **Chat page**
